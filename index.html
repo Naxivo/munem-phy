@@ -1200,21 +1200,12 @@ Contact: 01577299970</textarea>
 </div>
 </div>
 <div class="fg">
-<label>Department</label>
-<input class="fi" id="stuDept" placeholder="e.g. Statistics" list="deptList" oninput="loadDeptSuggestions()">
-<datalist id="deptList"></datalist>
+<label>Student Number</label>
+<input class="fi" id="stuStudentNumber" type="tel" placeholder="01XXXXXXXXX">
 </div>
-<div class="fg"><label>Phone (optional)</label><input class="fi" id="stuPhone" type="tel" placeholder="01XXXXXXXXX"></div>
 <div class="fg">
-<label>Batch Type *</label>
-<div style="display:flex;gap:8px">
-<label style="flex:1;display:flex;align-items:center;gap:8px;background:var(--pl);border:2px solid var(--pm);border-radius:10px;padding:11px 13px;cursor:pointer;font-size:14px;font-weight:700;color:var(--p)">
-<input type="radio" name="btype" value="Regular" checked style="accent-color:var(--p)"> 📚 Regular
-</label>
-<label style="flex:1;display:flex;align-items:center;gap:8px;background:var(--sur2);border:2px solid var(--bdr);border-radius:10px;padding:11px 13px;cursor:pointer;font-size:14px;font-weight:700;color:var(--tx2)">
-<input type="radio" name="btype" value="Exam" style="accent-color:var(--p)"> 📝 Exam
-</label>
-</div>
+<label>Parent Number</label>
+<input class="fi" id="stuParentNumber" type="tel" placeholder="01XXXXXXXXX">
 </div>
 <button class="btn btn-p" onclick="addStudent()">Add Student</button>
 </div>
@@ -1272,16 +1263,6 @@ Contact: 01577299970</textarea>
 <div class="cb" style="text-align:center;color:var(--tx3);font-size:13px">Select FROM batch to load students</div>
 </div>
 <div class="fg">
-<label>Batch Type in new batch</label>
-<div style="display:flex;gap:8px">
-<label style="flex:1;display:flex;align-items:center;gap:8px;background:var(--pl);border:2px solid var(--pm);border-radius:10px;padding:11px 13px;cursor:pointer;font-size:14px;font-weight:700;color:var(--p)">
-<input type="radio" name="transferBtype" value="Regular" checked style="accent-color:var(--p)"> 📚 Regular
-</label>
-<label style="flex:1;display:flex;align-items:center;gap:8px;background:var(--sur2);border:2px solid var(--bdr);border-radius:10px;padding:11px 13px;cursor:pointer;font-size:14px;font-weight:700;color:var(--tx2)">
-<input type="radio" name="transferBtype" value="Exam" style="accent-color:var(--p)"> 📝 Exam
-</label>
-</div>
-</div>
 <button class="btn btn-p" onclick="doTransferStudent()" id="transferBtn" disabled>Select a student →</button>
 </div>
 </div>
@@ -1300,8 +1281,8 @@ Contact: 01577299970</textarea>
 </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px">
-<div style="background:var(--sur2);border:1px solid var(--bdr);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Phone</div><div style="font-weight:700" id="dtlPhone">—</div></div>
-<div style="background:var(--sur2);border:1px solid var(--bdr);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Department</div><div style="font-weight:700" id="dtlDept">—</div></div>
+<div style="background:var(--sur2);border:1px solid var(--bdr);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Student No</div><div style="font-weight:700" id="dtlStudentNumber">—</div></div>
+<div style="background:var(--sur2);border:1px solid var(--bdr);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Parent No</div><div style="font-weight:700" id="dtlParentNumber">—</div></div>
 <div style="background:var(--sur2);border:1px solid var(--bdr);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Reg No</div><div style="font-weight:700" id="dtlReg">—</div></div>
 <div style="background:var(--sur2);border:1px solid var(--bdr);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Status</div><div style="font-weight:700" id="dtlStatus">—</div></div>
 </div>
@@ -1325,8 +1306,8 @@ Contact: 01577299970</textarea>
 <input type="hidden" id="editRow">
 <div class="fg"><label>Full Name *</label><input class="fi" id="editName" placeholder="Student name"></div>
 <div class="fg"><label>Reg No *</label><input class="fi" id="editRegNo" placeholder="Registration number"></div>
-<div class="fg"><label>Department</label><input class="fi" id="editDept" placeholder="Department" list="deptList2"><datalist id="deptList2"></datalist></div>
-<div class="fg"><label>Phone</label><input class="fi" id="editPhone" type="tel" placeholder="01XXXXXXXXX"></div>
+<div class="fg"><label>Student Number</label><input class="fi" id="editStudentNumber" type="tel" placeholder="01XXXXXXXXX"></div>
+<div class="fg"><label>Parent Number</label><input class="fi" id="editParentNumber" type="tel" placeholder="01XXXXXXXXX"></div>
 <button class="btn btn-p" onclick="saveEditStudent()">Save Changes</button>
 </div>
 </div>
@@ -1471,7 +1452,7 @@ console.log('✅ Script loaded successfully');
 // ═══════════════════════════════════════
 //  CONFIGURATION — Fill these values
 // ═══════════════════════════════════════
-const API_URL = "https://script.google.com/macros/s/AKfycbyENFOuEUg_oVrGOYmkGEbCpVw6IoeaNyqiEcZWS4PHZcy9hEgDZoR6TOsxt6aRqDPc/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycby9gJoOsj79j0Nv7hvWAFN2r4Kyv18c4TrO88i21DEbyNntTsK3jl4r9Lroo9XjjN7n/exec";
 const SECRET_TOKEN = "d6bf785b7cfcca40a85e3376cfb930da27a2842eb1d5a5b51105bf190edd07a2"; // ← paste your token here
 // ═══════════════════════════════════════
 //  API HELPER
@@ -1694,8 +1675,8 @@ document.getElementById('loginPage').style.display = 'flex';
 document.getElementById('lu').value = '';
 document.getElementById('lp').value = '';
 document.getElementById('loginError').style.display = 'none';
-// ✅ FIX 1: Remove class from body to hide nav
 document.body.classList.remove('logged-in');
+document.querySelector('.bnav').style.display = 'none';
 }
 document.addEventListener('keydown', e => {
 if (e.key === 'Enter' && document.getElementById('loginPage').style.display !== 'none') doLogin();
@@ -1961,7 +1942,7 @@ console.error('❌ Failed to load batches:', res.error);
 return;
 }
 if (!res.batches || res.batches.length === 0) {
-el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3)">No batches found</div>';
+el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3);padding:20px 16px">No batches found</div><div style="padding:0 16px 16px"><button class="btn btn-p" style="font-size:13px" onclick="openSht(\'addBatch\')">＋ Add New Batch</button></div>';
 return;
 }
 let html = '';
@@ -2144,7 +2125,7 @@ return `<div class="sli${inactive?' inactive':''}" onclick="showStudentDetail(${
 <div class="av" style="background:${bg};color:${fg}">${getInitials(s.name)}</div>
 <div class="sl-info">
 <div class="sl-name">${s.name} ${inactive?'<span class="bdg bdg-gr" style="font-size:10px">Inactive</span>':''}</div>
-<div class="sl-det">Reg: ${s.regNo} · ${s._batch} · ${s.department||'—'}</div>
+<div class="sl-det">Reg: ${s.regNo} · ${s._batch}</div>
 </div>
 <span class="bdg bdg-b">${s._batch.slice(0,4)}</span>
 </div>`;
@@ -2160,7 +2141,7 @@ if (!q) { renderStudentList(all); return; }
 const filtered = all.filter(s =>
 s.name.toLowerCase().includes(q.toLowerCase()) ||
 s.regNo.toString().includes(q) ||
-(s.department || '').toLowerCase().includes(q.toLowerCase())
+(s.phone || '').toLowerCase().includes(q.toLowerCase())
 );
 renderStudentList(filtered);
 }
@@ -2171,9 +2152,10 @@ document.getElementById('dtlAv').textContent = getInitials(s.name);
 document.getElementById('dtlAv').style.background = bg;
 document.getElementById('dtlAv').style.color = fg;
 document.getElementById('dtlName').textContent = s.name;
-document.getElementById('dtlInfo').textContent = `Reg: ${s.regNo} · ${s._batch} · ${s.batchType||'Regular'}`;
-document.getElementById('dtlPhone').textContent = s.phone || '—';
-document.getElementById('dtlDept').textContent = s.department || '—';
+document.getElementById('dtlInfo').textContent = `Reg: ${s.regNo} · ${s._batch}`;
+const phoneParts = (s.phone || '').split(' / ');
+document.getElementById('dtlStudentNumber').textContent = phoneParts[0] || '—';
+document.getElementById('dtlParentNumber').textContent = phoneParts[1] || '—';
 document.getElementById('dtlReg').textContent = s.regNo;
 document.getElementById('dtlStatus').textContent = s.status;
 document.getElementById('dtlStatus').style.color = s.status === 'Active' ? 'var(--ok)' : 'var(--err)';
@@ -2200,8 +2182,10 @@ document.getElementById('editRegNo').value = selectedStudent.regNo;
 document.getElementById('editBatch').value = selectedStudent._batch;
 document.getElementById('editRow').value = selectedStudent.row || '';
 document.getElementById('editName').value = selectedStudent.name;
-document.getElementById('editDept').value = selectedStudent.department || '';
-document.getElementById('editPhone').value = selectedStudent.phone || '';
+const phone = selectedStudent.phone || '';
+const parts = phone.split(' / ');
+document.getElementById('editStudentNumber').value = parts[0] || '';
+document.getElementById('editParentNumber').value = parts[1] || '';
 closeSht('stuDtl');
 openSht('editStu');
 }
@@ -2218,8 +2202,8 @@ async function saveEditStudent() {
         row: parseInt(document.getElementById('editRow').value, 10),
         regNo: regNo,
         name,
-        department: document.getElementById('editDept').value.trim(),
-        phone: document.getElementById('editPhone').value.trim()
+        studentNumber: document.getElementById('editStudentNumber').value.trim(),
+        parentNumber: document.getElementById('editParentNumber').value.trim()
       }
     });
     if (res.success) {
@@ -2236,24 +2220,23 @@ async function addStudent() {
   const name = document.getElementById('stuName').value.trim();
   const regNo = document.getElementById('stuRegNo').value.trim();
   const batch = document.getElementById('stuBatch').value;
-  const dept = document.getElementById('stuDept').value.trim();
-  const phone = document.getElementById('stuPhone').value.trim();
-  const btype = document.querySelector('input[name="btype"]:checked')?.value || 'Regular';
+  const studentNumber = document.getElementById('stuStudentNumber').value.trim();
+  const parentNumber = document.getElementById('stuParentNumber').value.trim();
   if (!name) { toast('❌ Name required'); return; }
   if (!regNo) { toast('❌ Reg No required'); return; }
   if (!batch) { toast('❌ Batch required'); return; }
   const btn = document.querySelector('#ov-addStu .btn-p');
   await withButtonState(btn, async () => {
     const res = await api('addStudent', {
-      student: { name, regNo, batch, department: dept, phone, batchType: btype }
+      student: { name, regNo, batch, studentNumber, parentNumber }
     });
     if (res.success) {
       closeSht('addStu');
       clearCachesFor('addStudent');
       document.getElementById('stuName').value = '';
       document.getElementById('stuRegNo').value = '';
-      document.getElementById('stuDept').value = '';
-      document.getElementById('stuPhone').value = '';
+      document.getElementById('stuStudentNumber').value = '';
+      document.getElementById('stuParentNumber').value = '';
       const addedBatch = document.getElementById('stuBatch').value;
       delete studentCache[addedBatch];
       delete studentCache['all'];
@@ -2292,15 +2275,7 @@ loadStudents();
 toast('❌ ' + res.error);
 }
 }
-async function loadDeptSuggestions() {
-const batch = document.getElementById('stuBatch')?.value || (batches.length > 0 ? batches[0].name : '');
-const res = await api('getDepartments', { batch });
-if (res.success) {
-const dl = document.getElementById('deptList');
-dl.innerHTML = res.departments.map(d => `<option value="${d}">`).join('');
-const dl2 = document.getElementById('deptList2');
-if (dl2) dl2.innerHTML = dl.innerHTML;
-}
+async function loadDeptSuggestions() {}
 }
 // ═══════════════════════════════════════
 //  BULK IMPORT
@@ -3884,7 +3859,7 @@ function renderTransferList(students) {
       <div class="av" style="background:${bg};color:${fg}">${getInitials(s.name)}</div>
       <div class="sl-info">
         <div class="sl-name">${s.name}</div>
-        <div class="sl-det">Reg: ${s.regNo} · ${s.department||'—'}</div>
+        <div class="sl-det">Reg: ${s.regNo} · ${s.phone||'—'}</div>
       </div>
       <span class="bdg bdg-b">${s.batch||'—'}</span>
     </div>`;
@@ -3914,12 +3889,11 @@ async function doTransferStudent() {
   const toBatch = document.getElementById('transferToBatch').value;
   if (!fromBatch || !toBatch) { toast('❌ Select both FROM and TO batches'); return; }
   if (fromBatch === toBatch) { toast('❌ FROM and TO batches must be different'); return; }
-  const btype = document.querySelector('input[name="transferBtype"]:checked')?.value || 'Regular';
   const btn = document.getElementById('transferBtn');
   await withButtonState(btn, async () => {
     const res = await api('transferStudent', {
       fromBatch, toBatch, regNo: selectedTransferStudent.regNo,
-      newRegNo: selectedTransferStudent.regNo, batchType: btype
+      newRegNo: selectedTransferStudent.regNo
     });
     if (res.success) {
       closeSht('transferStu');
@@ -4259,7 +4233,6 @@ container.innerHTML = `${headerHTML}
 <td style="padding:6px 8px;border:1px solid #e2e8f0">${i+1}</td>
 <td style="padding:6px 8px;border:1px solid #e2e8f0">${s.regNo}</td>
 <td style="padding:6px 8px;border:1px solid #e2e8f0">${s.name}</td>
-<td style="padding:6px 8px;border:1px solid #e2e8f0">${s.department||'N/A'}</td>
 <td style="padding:6px 8px;border:1px solid #e2e8f0">${s.phone||'N/A'}</td>
 <td style="padding:6px 8px;border:1px solid #e2e8f0">${s.status}</td>
 </tr>`).join('')}</tbody>
@@ -4312,11 +4285,9 @@ const exportData = students.map((s, index) => ({
 'Reg No': s.regNo,
 'Name': s.name,
 'Batch': s._batch || batchName,
-'Department': s.department || 'N/A',
 'Phone': s.phone || 'N/A',
 'Status': s.status,
-'Join Date': s.joinDate || 'N/A',
-'Email': s.email || 'N/A'
+'Join Date': s.joinDate || 'N/A'
 }));
 const worksheet = XLSX.utils.json_to_sheet(exportData);
 const workbook = XLSX.utils.book_new();
