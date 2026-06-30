@@ -1,0 +1,16 @@
+{
+  "name": "Munem Physics",
+  "short_name": "Munem Phy",
+  "description": "Coaching Centre Management System",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1d4ed8",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
