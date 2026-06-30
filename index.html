@@ -628,6 +628,8 @@ body.logged-in .bnav {
   padding: 16px;
   padding-bottom: calc(var(--nh) + 20px);
 }
+/* 5. Force hide bnav class */
+.bnav.hide-bnav { display: none !important; }
 </style>
 </head>
 <body>
@@ -947,11 +949,6 @@ body.logged-in .bnav {
 <div class="stc-ds">Eid, New Year etc.</div>
 </div>
 
-<div class="stc" onclick="selSms(this,'teacher')">
-<div class="stc-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-<div class="stc-lb">Teacher</div>
-<div class="stc-ds">Message to teacher</div>
-</div>
 <div class="stc" onclick="selSms(this,'custom')">
 <div class="stc-ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
 <div class="stc-lb">Custom</div>
@@ -973,16 +970,6 @@ body.logged-in .bnav {
 <input class="fi" id="smsStudentSearch" type="text" placeholder="🔍 Search by name / reg no / phone..." oninput="filterSmsStudents()" style="margin-bottom:6px">
 <select class="fs" id="smsStudent" size="6" style="height:auto;min-height:120px">
 <option value="">-- Select student --</option>
-</select>
-</div>
-</div>
-<div style="margin-top:8px">
-<div style="cursor:pointer;font-size:13px;font-weight:600;color:var(--p);padding:6px 0" onclick="toggleTeacherSms(this)">
-<span>▶</span><span style="margin-left:6px">👨‍🏫 Select Teacher</span>
-</div>
-<div class="fg" id="teacherSmsSection" style="display:none;margin-top:6px">
-<select class="fs" id="smsTeacher" size="5" style="height:auto;min-height:100px">
-<option value="">-- Select teacher --</option>
 </select>
 </div>
 </div>
@@ -1071,23 +1058,9 @@ Contact: 01577299970</textarea>
 <div class="loading"><div class="skel-stack"><div class="skel skel-line"></div><div class="skel skel-line w60"></div><div class="skel skel-line"></div><div class="skel skel-line w40"></div></div></div>
 </div>
 </div>
-<!-- Add Teachers (for SMS) -->
-<div class="ss">
-<div class="ss-t">Add Teachers</div>
-<div class="si" onclick="openAddTeacherSms()">
-<div class="si-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-<div class="si-info"><div class="si-lb">Add Teachers</div><div class="si-ds">Save teacher name & phone for SMS</div></div>
-<div class="si-ar">›</div>
-</div>
-</div>
-<!-- Admin Only Settings (Teachers & Access) -->
+<!-- Admin Only Settings -->
 <div class="ss" id="adminOnlySettings">
-<div class="ss-t">Teachers & Access</div>
-<div class="si" onclick="openSht('manageTeachers')">
-<div class="si-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-<div class="si-info"><div class="si-lb">Manage Teachers</div><div class="si-ds">Add or remove teacher accounts</div></div>
-<div class="si-ar">›</div>
-</div>
+<div class="ss-t">Admin</div>
 <div class="si" onclick="openSht('changePass')">
 <div class="si-ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
 <div class="si-info"><div class="si-lb">Change Password</div><div class="si-ds">Update your login password</div></div>
@@ -1102,12 +1075,7 @@ Contact: 01577299970</textarea>
 <div class="si-info"><div class="si-lb">SMS API Key</div><div class="si-ds">Update in Google Sheets Settings tab</div></div>
 <div class="si-ar">›</div>
 </div>
-<div class="si">
-<div class="si-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-<div class="si-info"><div class="si-lb">Auto Absence SMS</div><div class="si-ds">Trigger at 3 absences per month</div></div>
-<label class="tog" id="autoSmsLabel"><input type="checkbox" id="autoSmsTog"><span class="tog-sl"></span></label>
-</div>
-</div>
+  </div>
 <!-- Data -->
 <div class="ss">
 <div class="ss-t">Data</div>
@@ -1318,10 +1286,8 @@ Contact: 01577299970</textarea>
 <div class="sht-handle"></div>
 <div class="sht-title">Add New Batch</div>
 <div class="sht-body">
-<div class="fg"><label>Batch Name *</label><input class="fi" id="newBatchName" placeholder="e.g. Padma, Meghna" oninput="updBatchPreview()"></div>
+<div class="fg"><label>Batch Name *</label><input class="fi" id="newBatchName" placeholder="e.g. Padma"></div>
 <div class="fg"><label>Timing</label><input class="fi" id="newBatchTiming" placeholder="e.g. 8:00 AM – 10:00 AM"></div>
-<div class="fg"><label>Max Capacity</label><input class="fi" id="newBatchCap" type="number" placeholder="e.g. 70"></div>
-<div class="ibox" id="batchPreview">ℹ️ A new sheet will be automatically created in Google Sheets.</div>
 <button class="btn btn-p" onclick="addBatch()">Create Batch</button>
 </div>
 </div>
@@ -1337,55 +1303,6 @@ Contact: 01577299970</textarea>
 <div class="fg"><label>New Password *</label><div class="pw-wrap"><input class="fi" id="newPass" type="password" placeholder="••••••••"><button class="pw-eye" type="button" onclick="togglePass(this,'newPass')" tabindex="-1"><svg viewBox="0 0 24 24" width="18" height="18" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
 <div class="fg"><label>Confirm New Password *</label><div class="pw-wrap"><input class="fi" id="confPass" type="password" placeholder="••••••••"><button class="pw-eye" type="button" onclick="togglePass(this,'confPass')" tabindex="-1"><svg viewBox="0 0 24 24" width="18" height="18" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
 <button class="btn btn-p" onclick="changePassword()">Change Password</button>
-</div>
-</div>
-</div>
-<!-- Manage Teachers -->
-<div class="ov" id="ov-manageTeachers">
-<div class="sht">
-<div class="sht-handle"></div>
-<div class="sht-title">Manage Teachers</div>
-<div class="sht-body">
-<div class="card" style="padding:0;margin-bottom:14px" id="teacherList">
-<div class="loading"><div class="skel-stack"><div class="skel skel-line"></div><div class="skel skel-line w60"></div><div class="skel skel-line"></div><div class="skel skel-line w40"></div></div></div>
-</div>
-<button class="btn btn-p" onclick="openSht('addTeacher')">+ Add New Teacher</button>
-</div>
-</div>
-</div>
-<!-- Add Teacher -->
-<div class="ov" id="ov-addTeacher">
-<div class="sht">
-<div class="sht-handle"></div>
-<div class="sht-title">Add New Teacher</div>
-<div class="sht-body">
-<div class="fg"><label>Full Name *</label><input class="fi" id="tName" placeholder="e.g. Mr. Karim"></div>
-<div class="fg"><label>Username *</label><input class="fi" id="tUser" placeholder="e.g. karim (lowercase)"></div>
-<div class="fg"><label>Password *</label><div class="pw-wrap"><input class="fi" id="tPass" type="password" placeholder="••••••••"><button class="pw-eye" type="button" onclick="togglePass(this,'tPass')" tabindex="-1"><svg viewBox="0 0 24 24" width="18" height="18" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
-<div class="fg"><label>Role *</label>
-<select class="fs" id="tRole">
-<option value="Teacher">Teacher</option>
-<option value="Admin">Admin</option>
-</select>
-</div>
-<div class="fg"><label>Phone Number</label><input class="fi" id="tPhone" type="tel" placeholder="e.g. 017xxxxxxxx"></div>
-<button class="btn btn-p" onclick="addTeacher()">Add Teacher</button>
-</div>
-</div>
-</div>
-<!-- Teacher Contacts for SMS -->
-<div class="ov" id="ov-addTeacherSms">
-<div class="sht">
-<div class="sht-handle"></div>
-<div class="sht-title">Add Teacher</div>
-<div class="sht-body">
-<div class="card" style="padding:0;margin-bottom:14px" id="atsList">
-<div class="cb" style="text-align:center;color:var(--tx3)">Loading...</div>
-</div>
-<input type="hidden" id="atsEditId">
-<div class="fg"><label>Full Name *</label><input class="fi" id="atsName" placeholder="e.g. Mr. Karim"></div>
-<div class="fg"><label>Phone Number *</label><input class="fi" id="atsPhone" type="tel" placeholder="e.g. 017xxxxxxxx"></div>
-<button class="btn btn-p" id="atsBtn" onclick="saveAddTeacherSms()">Save</button>
 </div>
 </div>
 </div>
@@ -1452,7 +1369,7 @@ console.log('✅ Script loaded successfully');
 // ═══════════════════════════════════════
 //  CONFIGURATION — Fill these values
 // ═══════════════════════════════════════
-const API_URL = "https://script.google.com/macros/s/AKfycby9gJoOsj79j0Nv7hvWAFN2r4Kyv18c4TrO88i21DEbyNntTsK3jl4r9Lroo9XjjN7n/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwSrALAn6dxRa6gwWabK7-yJNgo4s2DjAXLee77ge2zE4DFhNyNcyG5aYO8iNZ8Smjg/exec";
 const SECRET_TOKEN = "d6bf785b7cfcca40a85e3376cfb930da27a2842eb1d5a5b51105bf190edd07a2"; // ← paste your token here
 // ═══════════════════════════════════════
 //  API HELPER
@@ -1495,7 +1412,6 @@ let markedBatchesToday = new Set();
 let studentCache = {};
 let editScheduleId = null;
 let _batchMgmtCache = null;
-let _teachersCache = null;
 let _examDatesCache = {};
 let _homeStatsCache = null;
 let repDate = new Date();
@@ -1533,9 +1449,6 @@ function clearCachesFor(action) {
     case 'addBatch': case 'toggleBatch':
       CACHE.clear('batches');
       _batchMgmtCache = null;
-      break;
-    case 'addTeacher': case 'editTeacher':
-      _teachersCache = null;
       break;
     case 'saveMarks':
       CACHE.clear('examDates_' + currentExamBatch);
@@ -1626,8 +1539,9 @@ currentUser = res.user;
 localStorage.setItem('bcsUser', JSON.stringify(res.user));
 document.getElementById('loginPage').style.display = 'none';
 document.getElementById('app').style.display = 'block';
-err.style.display = 'none';
+  err.style.display = 'none';
 document.body.classList.add('logged-in');
+document.querySelector('.bnav')?.classList.remove('hide-bnav');
 document.getElementById('profileName').textContent = res.user.name;
 document.getElementById('profileRole').textContent = res.user.role + ' · Munem Physics';
 document.getElementById('profileAv').textContent = res.user.name.charAt(0).toUpperCase();
@@ -1676,7 +1590,7 @@ document.getElementById('lu').value = '';
 document.getElementById('lp').value = '';
 document.getElementById('loginError').style.display = 'none';
 document.body.classList.remove('logged-in');
-document.querySelector('.bnav').style.display = 'none';
+document.querySelector('.bnav')?.classList.add('hide-bnav');
 }
 document.addEventListener('keydown', e => {
 if (e.key === 'Enter' && document.getElementById('loginPage').style.display !== 'none') doLogin();
@@ -1716,10 +1630,6 @@ if (name === 'attendance') loadAttendanceList().catch(err => console.error('Atte
 if (name === 'settings') {
 console.log('⚙️ Loading settings page...');
   loadBatchManagement().catch(err => console.error('❌ Batch management error:', err));
-  if (currentUser?.role === 'Admin') {
-    loadTeachers().catch(err => console.error('❌ Teachers load error:', err));
-    loadAutoSMSSetting().catch(err => console.error('❌ Auto SMS setting load error:', err));
-  }
 }
 if (name === 'sms') { refreshBalance().catch(err => console.error('Balance error:', err)); loadScheduleList().catch(err => console.error('Schedule error:', err)); }
 if (name === 'exams') loadExamDates().catch(err => console.error('Exam dates error:', err));
@@ -1992,16 +1902,14 @@ async function toggleBatch(name, checkbox) {
 async function addBatch() {
 const name = document.getElementById('newBatchName').value.trim();
 const timing = document.getElementById('newBatchTiming').value.trim();
-const cap = document.getElementById('newBatchCap').value;
 if (!name) { toast('❌ Batch name required'); return; }
 const btn = document.querySelector('#ov-addBatch .btn-p');
 await withButtonState(btn, async () => {
-  const res = await api('addBatch', { batchName: name, timing, capacity: cap });
+  const res = await api('addBatch', { batchName: name, timing });
   if (res.success) {
     closeSht('addBatch');
     document.getElementById('newBatchName').value = '';
     document.getElementById('newBatchTiming').value = '';
-    document.getElementById('newBatchCap').value = '';
     CACHE.clear('home');
     _batchMgmtCache = null;
     delete studentCache['all'];
@@ -2012,10 +1920,6 @@ await withButtonState(btn, async () => {
 }, { loading: 'Creating...', success: '✅ Created!', error: '❌ Failed!' });
 }
 
-function updBatchPreview() {
-const v = document.getElementById('newBatchName').value.trim() || 'BatchName';
-document.getElementById('batchPreview').innerHTML = `️ A new sheet <strong>"${v}"</strong> will be created in Google Sheets automatically.`;
-}
 // ═══════════════════════════════════════
 //  STUDENTS
 // ═══════════════════════════════════════
@@ -2878,15 +2782,6 @@ Thank you
 Munem Physics
 Contact: 01577299970`
 },
-
-teacher: {
-to: 'all',
-msg: `Dear [Teacher Name] sir,
-
-Thank you
-Munem Physics
-Contact: 01577299970`
-},
 custom: {
 to: 'all',
 msg: `Dear [Student Name], Reg: [RegNo], Batch: [Batch],
@@ -2904,14 +2799,6 @@ const msg = document.getElementById('smsMsg');
 const sel = document.getElementById('smsTo');
 if (msg) { msg.value = t.msg; updCC(); }
 if (sel) sel.value = t.to;
-  if (type === 'teacher') {
-const sec = document.getElementById('teacherSmsSection');
-if (sec && sec.style.display === 'none') {
-const parent = sec.parentElement;
-const trigger = parent.querySelector('div:first-child');
-if (trigger) trigger.click();
-}
-}
 }
 }
 function updCC() {
@@ -2946,8 +2833,6 @@ const sel = document.getElementById('smsStudent');
 if (sel) sel.value = '';
 const search = document.getElementById('smsStudentSearch');
 if (search) { search.value = ''; filterSmsStudents(); }
-const tSel = document.getElementById('smsTeacher');
-if (tSel) tSel.value = '';
 }
 function toggleIndividualSms(el) {
 const section = document.getElementById('individualSmsSection');
@@ -2991,36 +2876,6 @@ sel.appendChild(opt);
 });
 if (!filtered.length) {
 sel.innerHTML += '<option value="" disabled>No matching students</option>';
-}
-}
-function toggleTeacherSms(el) {
-const section = document.getElementById('teacherSmsSection');
-if (!section) return;
-const arrow = el.querySelector('span:first-child');
-if (section.style.display === 'none') {
-section.style.display = '';
-arrow.textContent = '▼';
-loadSmsTeacherDropdown();
-} else {
-section.style.display = 'none';
-arrow.textContent = '▶';
-}
-}
-async function loadSmsTeacherDropdown() {
-const sel = document.getElementById('smsTeacher');
-if (!sel) return;
-sel.innerHTML = '<option>Loading...</option>';
-const res = await api('getTeachersForSms');
-sel.innerHTML = '<option value="">-- Select teacher --</option>';
-if (res.success && res.teachers) {
-res.teachers.forEach(t => {
-const opt = document.createElement('option');
-opt.value = JSON.stringify({ phone: t.phone, name: t.name });
-opt.textContent = `${t.name} - ${t.phone}`;
-sel.appendChild(opt);
-});
-} else {
-sel.innerHTML += '<option value="" disabled>No teachers with phone found</option>';
 }
 }
 async function loadSmsStudentDropdown() {
@@ -3070,12 +2925,7 @@ async function sendSMS() {
   if (!msg) { toast('❌ Message required'); return; }
   let students = [];
   const indSel = document.getElementById('smsStudent');
-  const teacherSel = document.getElementById('smsTeacher');
-  if (teacherSel && teacherSel.value) {
-    const t = JSON.parse(teacherSel.value);
-    if (!t.phone) { toast('❌ Selected teacher has no phone number'); return; }
-    students = [t];
-  } else if (indSel.value) {
+  if (indSel.value) {
     const stu = JSON.parse(indSel.value);
     if (!stu.phone) { toast('❌ Selected student has no phone number'); return; }
     students = [stu];
@@ -3401,150 +3251,6 @@ loadScheduleList();
 toast('❌ ' + res.error);
 }
 }
-// ═══════════════════════════════════════
-//  TEACHERS
-// ═══════════════════════════════════════
-async function loadTeachers() {
-console.log('👥 Loading teachers...');
-if (currentUser?.role !== 'Admin') {
-console.log('⚠️ Not admin, skipping teacher load');
-return;
-}
-const el = document.getElementById('teacherList');
-if (!el) {
-console.error('❌ teacherList element not found!');
-return;
-}
-try {
-el.innerHTML = '<div class="loading"><div class="skel-stack"><div class="skel skel-line"></div><div class="skel skel-line w60"></div><div class="skel skel-line"></div><div class="skel skel-line w40"></div></div></div>';
-const res = await api('getTeachers');
-console.log(' Teachers response:', res);
-if (!res.success) {
-el.innerHTML = '<div class="cb">Failed to load teachers: ' + (res.error || 'Unknown error') + '</div>';
-console.error('❌ Failed to load teachers:', res.error);
-return;
-}
-if (!res.teachers || res.teachers.length === 0) {
-el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3)">No teachers found</div>';
-return;
-}
-el.innerHTML = res.teachers.map(t => `
-<div class="sli">
-<div class="av" style="background:var(--pl);color:var(--p)">${t.name.charAt(0).toUpperCase()}</div>
-<div class="sl-info">
-<div class="sl-name">${t.name}</div>
-<div class="sl-det">${t.username} · ${t.role}${t.phone ? ' · ' + t.phone : ''} · <span style="color:var(--${t.status==='Active'?'ok':'err'})">${t.status}</span></div>
-</div>
-${t.status === 'Active' && t.role !== 'Admin' ? `<button class="btn btn-sm btn-err" onclick="deactivateTeacher('${t.username}')">Remove</button>` : ''}
-</div>`).join('');
-console.log('✅ Teachers loaded successfully');
-} catch (err) {
-console.error('❌ Error in loadTeachers:', err);
-el.innerHTML = '<div class="cb">Error loading teachers. Check console.</div>';
-}
-}
-async function addTeacher() {
-  const name = document.getElementById('tName').value.trim();
-  const user = document.getElementById('tUser').value.trim().toLowerCase();
-  const pass = document.getElementById('tPass').value;
-  const role = document.getElementById('tRole').value;
-  const phone = document.getElementById('tPhone').value.trim();
-  if (!name || !user || !pass) { toast('❌ All fields required'); return; }
-  const btn = document.querySelector('#ov-addTeacher .btn-p');
-  await withButtonState(btn, async () => {
-    const res = await api('addTeacher', { teacher: { name, username: user, password: pass, role, phone } });
-    if (res.success) {
-      closeSht('addTeacher');
-      document.getElementById('tName').value = '';
-      document.getElementById('tUser').value = '';
-      document.getElementById('tPass').value = '';
-      document.getElementById('tPhone').value = '';
-      loadTeachers();
-    }
-    return res;
-  }, { loading: 'Adding...', success: '✅ Added!', error: '❌ Failed!' });
-}
-async function deactivateTeacher(username) {
-if (!confirm('Remove this teacher?')) return;
-const res = await api('deactivateTeacher', { username });
-if (res.success) { toast('✅ Teacher removed'); loadTeachers(); }
-else { toast('❌ ' + res.error); }
-}
-// ═══════════════════════════════════════
-//  ADD TEACHER for SMS
-// ═══════════════════════════════════════
-function openAddTeacherSms() {
-  document.getElementById('atsName').value = '';
-  document.getElementById('atsPhone').value = '';
-  document.getElementById('atsEditId').value = '';
-  document.getElementById('atsBtn').textContent = 'Save';
-  loadTeacherSmsList();
-  openSht('addTeacherSms');
-}
-async function loadTeacherSmsList() {
-  const el = document.getElementById('atsList');
-  if (!el) return;
-  const res = await api('getTeacherContacts');
-  if (!res.success || !res.teachers.length) {
-    el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3);padding:16px">No teachers added yet</div>';
-    return;
-  }
-  window._atsTeachers = res.teachers;
-  el.innerHTML = res.teachers.map(t => `
-<div class="sli">
-<div class="av" style="background:var(--pl);color:var(--p)">${(t.name||'?').charAt(0).toUpperCase()}</div>
-<div class="sl-info">
-<div class="sl-name">${t.name}</div>
-<div class="sl-det">${t.role || 'Teacher'}${t.phone ? ' · ' + t.phone : ''}</div>
-</div>
-<div style="display:flex;gap:4px">
-<button class="btn btn-sm btn-out" onclick="editTeacherSms('${t.id}')" style="padding:4px 8px;font-size:10px">✎</button>
-<button class="btn btn-sm btn-err" onclick="removeTeacherSms('${t.id}')" style="padding:4px 8px;font-size:10px">✕</button>
-</div>
-</div>`).join('');
-}
-function editTeacherSms(id) {
-  const el = document.getElementById('atsList');
-  if (!el) return;
-  const teachers = window._atsTeachers || [];
-  const t = teachers.find(x => String(x.id) === String(id));
-  if (!t) { toast('❌ Not found'); return; }
-  document.getElementById('atsName').value = t.name;
-  document.getElementById('atsPhone').value = t.phone || '';
-  document.getElementById('atsEditId').value = t.id;
-  document.getElementById('atsBtn').textContent = 'Update';
-}
-async function removeTeacherSms(id) {
-  if (!confirm('Remove this teacher?')) return;
-  const res = await api('removeTeacherContact', { id });
-  if (res.success) { toast('✅ Removed'); loadTeacherSmsList(); loadSmsTeacherDropdown(); }
-  else { toast('❌ ' + (res.error || 'Failed')); }
-}
-async function saveAddTeacherSms() {
-  const name = document.getElementById('atsName').value.trim();
-  const phone = document.getElementById('atsPhone').value.trim();
-  const editId = document.getElementById('atsEditId').value;
-  if (!name || !phone) { toast('❌ Name and phone required'); return; }
-  const btn = document.getElementById('atsBtn');
-  await withButtonState(btn, async () => {
-    let res;
-    if (editId) {
-      res = await api('editTeacherContact', { id: editId, name, phone, role: 'Teacher' });
-    } else {
-      res = await api('addTeacherContact', { name, phone, role: 'Teacher' });
-    }
-    if (res.success) {
-      document.getElementById('atsName').value = '';
-      document.getElementById('atsPhone').value = '';
-      document.getElementById('atsEditId').value = '';
-      document.getElementById('atsBtn').textContent = 'Save';
-      loadTeacherSmsList();
-      loadSmsTeacherDropdown();
-      toast('✅ ' + (editId ? 'Updated!' : 'Saved!'));
-    }
-    return res;
-  }, { loading: editId ? 'Updating...' : 'Saving...', success: '✅ Done!', error: '❌ Failed!' });
-}
 async function changePassword() {
   const old = document.getElementById('oldPass').value;
   const nw = document.getElementById('newPass').value;
@@ -3562,35 +3268,6 @@ async function changePassword() {
     }
     return res;
   }, { loading: 'Updating...', success: '✅ Updated!', error: '❌ Failed!' });
-}
-async function loadAutoSMSSetting() {
-const res = await api('getSetting', { key: 'AUTO_SMS' });
-const cb = document.getElementById('autoSmsTog');
-if (cb) cb.checked = res.success && String(res.value) === 'true';
-}
-document.getElementById('autoSmsLabel')?.addEventListener('click', toggleAutoSMS);
-let _togLock = false;
-function toggleAutoSMS(e) {
-if (e) e.preventDefault();
-if (_togLock) return;
-_togLock = true;
-const cb = document.getElementById('autoSmsTog');
-const newVal = cb ? !cb.checked : true; // flip before API
-if (cb) cb.checked = newVal;
-const valStr = newVal ? 'true' : 'false';
-api('updateSetting', { key: 'AUTO_SMS', value: valStr }).then(res => {
-if (res.success) {
-toast(valStr === 'true' ? '✅ Auto Absence SMS enabled' : ' Auto Absence SMS disabled');
-} else {
-toast('❌ Failed to update');
-if (cb) cb.checked = !newVal;
-}
-}).catch(e => {
-toast('❌ Error');
-if (cb) cb.checked = !newVal;
-}).finally(() => {
-_togLock = false;
-});
 }
 async function syncData() {
 toast('️ Syncing with Google Sheets...');
@@ -3782,6 +3459,7 @@ currentUser = parsed;
 document.getElementById('loginPage').style.display = 'none';
 document.getElementById('app').style.display = 'block';
 document.body.classList.add('logged-in');
+document.querySelector('.bnav')?.classList.remove('hide-bnav');
 // Update UI
 document.getElementById('profileName').textContent = currentUser.name;
 document.getElementById('profileRole').textContent = currentUser.role + ' · Munem Physics';
