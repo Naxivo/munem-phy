@@ -10,10 +10,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="BCS Academy">
 <!-- ✅ ADD THESE TWO LINES FOR ICONS & MANIFEST -->
-<link rel="apple-touch-icon" href="/nxv-sys-2016/icon.png">
+<link rel="apple-touch-icon" href="icon.svg">
 <link rel="manifest" href="/nxv-sys-2016/manifest.json">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A73E8'/><text y='.72em' font-size='70' text-anchor='middle' x='50' dominant-baseline='middle' fill='white'>🎓</text></svg>">
-<title>Basic BCS Academy</title>
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<title>Munem Physics</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
@@ -635,11 +635,11 @@ body.logged-in .bnav {
 <div id="loginPage">
 <div class="login-logo-wrap">
 <div class="login-logo">
-<img src="logo.png" alt="Basic BCS Academy" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'font-size:36px;font-weight:900;color:#fff;font-family:Poppins\'>B</span>'">
+<img src="icon.svg" alt="Munem Physics" style="width:48px;height:48px">
 </div>
 <div class="login-ring"></div>
 </div>
-<div class="login-name">Basic BCS Academy</div>
+<div class="login-name">Munem Physics</div>
 <div class="login-tag">Coaching Centre Management System</div>
 <div class="login-card">
 <label class="lbl">Username</label>
@@ -652,7 +652,7 @@ body.logged-in .bnav {
 <button class="btn btn-p" onclick="doLogin()" id="loginBtn">Sign In →</button>
 <div id="loginError" style="color:var(--err);font-size:12px;text-align:center;margin-top:10px;display:none;font-weight:600"></div>
 </div>
-<div class="login-ver">Basic BCS Academy · v1.0 · Made in Bangladesh 🇧</div>
+<div class="login-ver">Munem Physics · v1.0 · Made in Bangladesh 🇧</div>
 </div>
 <!-- ═══════════ APP ═══════════ -->
 <div id="app" style="display:none">
@@ -660,10 +660,10 @@ body.logged-in .bnav {
 <div class="page active" id="pg-home">
 <div class="topbar">
 <div class="tb-logo">
-<img src="logo.png" alt="B" style="width:22px;height:22px;object-fit:contain" onerror="this.style.display='none';this.parentNode.innerHTML='<span style=\'color:#fff;font-weight:800;font-size:14px\'>B</span>'">
+<img src="icon.svg" alt="M" style="width:22px;height:22px">
 </div>
 <div class="tb-info">
-<div class="tb-name">Basic BCS Academy</div>
+<div class="tb-name">Munem Physics</div>
 <div class="tb-sub" id="todayDate">Loading...</div>
 </div>
 <div class="tb-right">
@@ -1001,7 +1001,7 @@ body.logged-in .bnav {
 <label>Message</label>
 <textarea class="fta" id="smsMsg" oninput="updCC()">Dear [Student Name], Reg: [RegNo], Batch: [Batch], You have 3 absents this month. Your admission is on hold. Please contact the office.
 Thank you
-Basic BCS Academy
+Munem Physics
 Contact: 01577299970</textarea>
 <div class="cc"><span id="cc">0</span> characters · ~<span id="sc">1</span> SMS per recipient</div>
 </div>
@@ -1034,7 +1034,7 @@ Contact: 01577299970</textarea>
         <textarea class="fta" id="exSmsMsgInline" oninput="updExSmsCC()">Dear [Student Name],
 
 Thank you
-Basic BCS Academy
+Munem Physics
 Contact: 01577299970</textarea>
         <div class="cc"><span id="exCC">0</span> characters · ~<span id="exSC">0</span> SMS · <span id="exCount">0</span> recipients</div>
       </div>
@@ -1063,7 +1063,7 @@ Contact: 01577299970</textarea>
 <div class="lic-ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
 <div class="lic-info">
 <div class="lic-title">Licence Active</div>
-<div class="lic-sub">Valid · Basic BCS Academy · v1.0</div>
+<div class="lic-sub">Valid · Munem Physics · v1.0</div>
 </div>
 </div>
 <!-- Appearance -->
@@ -1439,7 +1439,7 @@ Contact: 01577299970</textarea>
 </div>
 </div>
 <div style="text-align:center;font-size:12px;color:var(--tx4);font-weight:500;margin-top:14px;font-style:italic">
-Basic BCS Academy · v1.3 · Made in Bangladesh 🇧🇩
+Munem Physics · v1.3 · Made in Bangladesh 🇧🇩
 </div>
 </div>
 </div>
@@ -1651,7 +1651,7 @@ document.getElementById('app').style.display = 'block';
 err.style.display = 'none';
 document.body.classList.add('logged-in');
 document.getElementById('profileName').textContent = res.user.name;
-document.getElementById('profileRole').textContent = res.user.role + ' · Basic BCS Academy';
+document.getElementById('profileRole').textContent = res.user.role + ' · Munem Physics';
 document.getElementById('profileAv').textContent = res.user.name.charAt(0).toUpperCase();
 if (res.user.role !== 'Admin') {
 const adminSettings = document.getElementById('adminOnlySettings');
@@ -2917,14 +2917,14 @@ absence: {
 to: 'absent',
 msg: `Dear [Student Name], Reg: [RegNo], Batch: [Batch], You have 3 absents this month. Your admission is on hold. Please contact the office.
 Thank you
-Basic BCS Academy
+Munem Physics
 Contact: 01577299970`
 },
 festival: {
 to: 'all',
 msg: `Dear [Student Name], Reg: [RegNo], Batch: [Batch], Eid Mubarak! Wishing you and your family a joyful celebration.
 Thank you
-Basic BCS Academy
+Munem Physics
 Contact: 01577299970`
 },
 
@@ -2933,14 +2933,14 @@ to: 'all',
 msg: `Dear [Teacher Name] sir,
 
 Thank you
-Basic BCS Academy
+Munem Physics
 Contact: 01577299970`
 },
 custom: {
 to: 'all',
 msg: `Dear [Student Name], Reg: [RegNo], Batch: [Batch],
 Thank you
-Basic BCS Academy
+Munem Physics
 Contact: 01577299970`
 }
 };
@@ -3658,7 +3658,7 @@ alert('No attendance data found for this date.');
 return;
 }
 const records = response.records;
-const centreName = "Basic BCS Academy";
+const centreName = "Munem Physics";
 const exportDate = new Date().toLocaleDateString('en-BD', {
 day: '2-digit', month: 'short', year: 'numeric'
 });
@@ -3804,7 +3804,7 @@ document.getElementById('app').style.display = 'block';
 document.body.classList.add('logged-in');
 // Update UI
 document.getElementById('profileName').textContent = currentUser.name;
-document.getElementById('profileRole').textContent = currentUser.role + ' · Basic BCS Academy';
+document.getElementById('profileRole').textContent = currentUser.role + ' · Munem Physics';
 document.getElementById('profileAv').textContent = currentUser.name.charAt(0).toUpperCase();
 // Hide admin settings if it's a teacher
 if (currentUser.role !== 'Admin') {
@@ -4219,7 +4219,7 @@ if (!response.success) { alert('Failed to load student data.'); return; }
 students = response.students;
 }
 if (students.length === 0) { alert('No students found to export.'); return; }
-const centreName = "Basic BCS Academy";
+const centreName = "Munem Physics";
 const exportDate = new Date().toLocaleDateString('en-BD', { day: '2-digit', month: 'short', year: 'numeric' });
 const studentsPerPage = 25;
 const totalPages = Math.ceil(students.length / studentsPerPage);
