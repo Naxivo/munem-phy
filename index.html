@@ -1863,7 +1863,7 @@ console.error('❌ Failed to load batches:', res.error);
 return;
 }
 if (!res.batches || res.batches.length === 0) {
-el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3);padding:20px 16px">No batches found</div><div style="padding:0 16px 16px"><button class="btn btn-p add-batch-btn" style="font-size:13px" onclick="window.openSht('addBatch')">＋ Add New Batch</button></div>';
+el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3);padding:20px 16px">No batches found</div><div style="padding:0 16px 16px"><button class="btn btn-p add-batch-btn" style="font-size:13px" onclick="window.openSht(\'addBatch\')">＋ Add New Batch</button></div>';
 return;
 }
 let html = '';
