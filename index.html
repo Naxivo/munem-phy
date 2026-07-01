@@ -1451,6 +1451,10 @@ Munem Physics · v1.3 · Made in Bangladesh 🇧🇩
 <div class="sht-title">Import Students</div>
 <div class="sht-body">
   <div class="fg">
+    <label>Select Batch *</label>
+    <select class="fs" id="importBatch"></select>
+  </div>
+  <div class="fg">
     <label>Choose File (.xlsx or .csv)</label>
     <input class="fi" type="file" id="importFileInput" accept=".xlsx,.xls,.csv" onchange="handleImportFile(this)">
   </div>
@@ -1815,6 +1819,8 @@ const IMPORT_BATCH_SIZE = 500;
 let _importStudents = [];
 
 function openImportDrawer() {
+  const sel = document.getElementById('importBatch');
+  sel.innerHTML = batches.filter(b => b.status === 'Active').map(b => `<option value="${b.name}">${b.name}</option>`).join('');
   document.getElementById('importFileInput').value = '';
   document.getElementById('importPreview').style.display = 'none';
   document.getElementById('importBtn').style.display = 'block';
@@ -1824,10 +1830,10 @@ function openImportDrawer() {
 
 function downloadImportTemplate() {
   const wb = XLSX.utils.book_new();
-  const data = [['RegNo', 'Name', 'Student Number', 'Parent Number', 'Batch']];
-  data.push(['01', 'Karim Ahmed', '01712345678', '01987654321', 'HSC 1st Year']);
+  const data = [['RegNo', 'Name', 'Student Number', 'Parent Number']];
+  data.push(['01', 'Karim Ahmed', '01712345678', '01987654321']);
   const ws = XLSX.utils.aoa_to_sheet(data);
-  ws['!cols'] = [{wch:10},{wch:30},{wch:20},{wch:20},{wch:20}];
+  ws['!cols'] = [{wch:10},{wch:30},{wch:20},{wch:20}];
   XLSX.utils.book_append_sheet(wb, ws, 'Template');
   XLSX.writeFile(wb, 'Import_Template.xlsx');
 }
@@ -1851,15 +1857,12 @@ function handleImportFile(input) {
       json.forEach((row, idx) => {
         const name = (row['Name'] || row['name'] || '').toString().trim();
         const regNo = (row['RegNo'] || row['regno'] || row['Reg No'] || '').toString().trim();
-        const batch = (row['Batch'] || row['batch'] || '').toString().trim();
         if (!name && !regNo) return;
         if (!name) { warnings.push(`Row ${idx + 2}: Missing name`); return; }
         if (!regNo) { warnings.push(`Row ${idx + 2}: Missing RegNo`); return; }
-        if (!batch) { warnings.push(`Row ${idx + 2}: Missing Batch`); return; }
         _importStudents.push({
           regNo,
           name,
-          batch,
           studentNumber: (row['Student Number'] || row['studentNumber'] || row['student_number'] || '').toString().trim(),
           parentNumber: (row['Parent Number'] || row['parentNumber'] || row['parent_number'] || '').toString().trim()
         });
@@ -1875,13 +1878,10 @@ function handleImportFile(input) {
 function showImportPreview(students, warnings) {
   const preview = document.getElementById('importPreview');
   preview.style.display = 'block';
-  const batchGroups = [...new Set(students.map(s => s.batch))];
-  const batchSummary = batchGroups.map(b => `${b}: ${students.filter(s => s.batch === b).length}`).join(' · ');
   document.getElementById('importSummary').innerHTML = `
     <div style="background:var(--pl);border:1px solid var(--pm);border-radius:10px;padding:12px 14px">
       <div style="font-size:15px;font-weight:800;color:var(--p)">Found ${students.length} students</div>
       <div style="font-size:12px;font-weight:600;color:var(--ok);margin-top:4px">✅ ${students.length} valid</div>
-      <div style="font-size:11px;font-weight:600;color:var(--tx3);margin-top:6px">${batchSummary}</div>
       ${warnings.length ? `<div style="font-size:12px;font-weight:600;color:var(--warn);margin-top:4px">⚠️ ${warnings.length} have issues</div>` : ''}
     </div>`;
   const errEl = document.getElementById('importErrors');
@@ -1896,24 +1896,24 @@ function showImportPreview(students, warnings) {
       <span style="width:26px;font-weight:600;color:var(--tx4)">${i + 1}</span>
       <span style="width:50px;font-weight:700">${s.regNo}</span>
       <span style="flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.name}</span>
-      <span style="width:90px;font-size:11px;color:var(--tx3)">${s.studentNumber || '—'}</span>
-      <span style="width:90px;font-size:11px;color:var(--tx3)">${s.parentNumber || '—'}</span>
-      <span style="width:110px;font-size:11px;color:var(--tx3)">${s.batch}</span>
+      <span style="width:100px;font-size:11px;color:var(--tx3)">${s.studentNumber || '—'}</span>
+      <span style="width:100px;font-size:11px;color:var(--tx3)">${s.parentNumber || '—'}</span>
     </div>`).join('');
   document.getElementById('importPreviewTable').innerHTML = `
     <div style="padding:8px 12px;background:var(--sur2);border-bottom:1px solid var(--bdr);font-size:11px;font-weight:700;color:var(--tx4);display:flex;gap:6px">
       <span style="width:26px">#</span>
       <span style="width:50px">RegNo</span>
       <span style="flex:1">Name</span>
-      <span style="width:90px">Student No</span>
-      <span style="width:90px">Parent No</span>
-      <span style="width:110px">Batch</span>
+      <span style="width:100px">Student No</span>
+      <span style="width:100px">Parent No</span>
     </div>${tbody}
     ${students.length > 50 ? `<div style="padding:10px;text-align:center;font-size:12px;color:var(--tx4);font-weight:600">...and ${students.length - 50} more</div>` : ''}`;
-  document.getElementById('importBtn').textContent = `Import All ${students.length} (${batchGroups.length} batches)`;
+  document.getElementById('importBtn').textContent = `Import All ${students.length}`;
 }
 
 async function importStudents() {
+  const batch = document.getElementById('importBatch').value;
+  if (!batch) { toast('❌ Select a batch'); return; }
   if (!_importStudents.length) { toast('❌ No students to import'); return; }
   const btn = document.getElementById('importBtn');
   const progressDiv = document.getElementById('importProgress');
@@ -1926,37 +1926,24 @@ async function importStudents() {
   btn.style.display = 'none';
   progressDiv.style.display = 'block';
 
-  // Group students by batch
-  const byBatch = {};
-  _importStudents.forEach(s => {
-    if (!byBatch[s.batch]) byBatch[s.batch] = [];
-    byBatch[s.batch].push(s);
-  });
-  const batchNames = Object.keys(byBatch);
-  let done = 0;
-
-  for (const batch of batchNames) {
-    const students = byBatch[batch];
-    for (let i = 0; i < students.length; i += IMPORT_BATCH_SIZE) {
-      const chunk = students.slice(i, i + IMPORT_BATCH_SIZE);
-      const pct = Math.min(100, Math.round((done / total) * 100));
-      progressBar.style.width = pct + '%';
-      progressText.textContent = `Batch "${batch}": importing ${Math.min(i + IMPORT_BATCH_SIZE, students.length)}/${students.length}`;
-      const res = await api('bulkAddStudents', { batch, students: chunk });
-      if (res.success) {
-        imported += res.count;
-        if (res.errors && res.errors.length) allErrors = allErrors.concat(res.errors);
-      } else {
-        allErrors.push(`Batch "${batch}": ${res.error || 'Failed'}`);
-      }
-      done += chunk.length;
+  for (let i = 0; i < total; i += IMPORT_BATCH_SIZE) {
+    const chunk = _importStudents.slice(i, i + IMPORT_BATCH_SIZE);
+    const pct = Math.min(100, Math.round((i / total) * 100));
+    progressBar.style.width = pct + '%';
+    progressText.textContent = `Importing... ${Math.min(i + IMPORT_BATCH_SIZE, total)}/${total}`;
+    const res = await api('bulkAddStudents', { batch, students: chunk });
+    if (res.success) {
+      imported += res.count;
+      if (res.errors && res.errors.length) allErrors = allErrors.concat(res.errors);
+    } else {
+      allErrors.push(res.error || 'Batch failed');
     }
   }
 
   progressBar.style.width = '100%';
   progressText.textContent = `✅ ${imported} students imported successfully!`;
   clearCachesFor('addStudent');
-  batchNames.forEach(b => delete studentCache[b]);
+  delete studentCache[batch];
   delete studentCache['all'];
   if (allErrors.length) {
     progressText.textContent += ` ⚠️ ${allErrors.length} issues`;
