@@ -1369,7 +1369,7 @@ console.log('✅ Script loaded successfully');
 // ═══════════════════════════════════════
 //  CONFIGURATION — Fill these values
 // ═══════════════════════════════════════
-const API_URL = "https://script.google.com/macros/s/AKfycbyd8QPC2ANkeg511OCQTkXUZ1B6cFB7tKdes27ClKAZkz1O7RZ4bdIVk4-RIK5v5sGQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxFkHD__2kfDQqO8PTdrkNfK_VYlUG5JYohy4s17iiTeMQ4aQ5VqdLHu7iPKdv4sFrO/exec";
 const SECRET_TOKEN = "d6bf785b7cfcca40a85e3376cfb930da27a2842eb1d5a5b51105bf190edd07a2"; // ← paste your token here
 // ═══════════════════════════════════════
 //  API HELPER
@@ -1695,7 +1695,7 @@ loadResults();
 function openSht(id) {
   const el = document.getElementById('ov-' + id);
   if (el) { el.classList.add('open'); }
-  else { console.error('openSht: element #ov-' + id + ' not found'); }
+  else { toast('⚠️ Popup element not found!'); }
 }
 function closeSht(id) { document.getElementById('ov-' + id).classList.remove('open'); }
 document.querySelectorAll('.ov').forEach(o => {
@@ -1856,7 +1856,7 @@ console.error('❌ Failed to load batches:', res.error);
 return;
 }
 if (!res.batches || res.batches.length === 0) {
-el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3);padding:20px 16px">No batches found</div><div style="padding:0 16px 16px"><button class="btn btn-p" style="font-size:13px" onclick="openSht(\'addBatch\')">＋ Add New Batch</button></div>';
+el.innerHTML = '<div class="cb" style="text-align:center;color:var(--tx3);padding:20px 16px">No batches found</div><div style="padding:0 16px 16px"><button class="btn btn-p add-batch-btn" style="font-size:13px">＋ Add New Batch</button></div>';
 return;
 }
 let html = '';
@@ -1871,7 +1871,7 @@ html += `<div class="bmi">
 <label class="tog"><input type="checkbox" ${on?'checked':''} onchange="window.toggleBatch('${b.name}', this)"><span class="tog-sl"></span></label>
 </div>`;
 });
-    html += `<div style="padding:12px 16px"><button class="btn btn-p" style="font-size:13px" onclick="openSht('addBatch')">＋ Add New Batch</button></div>`;
+    html += `<div style="padding:12px 16px"><button class="btn btn-p add-batch-btn" style="font-size:13px">＋ Add New Batch</button></div>`;
     _batchMgmtCache = html;
     el.innerHTML = html;
 } catch (err) {
@@ -1879,6 +1879,10 @@ console.error('❌ Error in loadBatchManagement:', err);
 el.innerHTML = '<div class="cb" style="text-align:center;color:var(--err)">Error loading batches. Check console.</div>';
 }
 }
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.add-batch-btn');
+  if (btn) { e.preventDefault(); openSht('addBatch'); }
+});
 async function toggleBatch(name, checkbox) {
   const res = await api('toggleBatch', { batchName: name });
   
