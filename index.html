@@ -512,7 +512,7 @@ QUICK ACTIONS
 .bmi-dot.off { background: var(--sur3); color: var(--tx4); border-color: var(--bdr); }
 .bmi-info { flex: 1; } .bmi-name { font-size: 14px; font-weight: 700; } .bmi-det { font-size: 11px; color: var(--tx3); margin-top: 2px; font-weight: 500; }
 /* DRAWERS */
-.ov { position: fixed; inset: 0; background: rgba(9,13,24,.6); backdrop-filter: blur(6px); z-index: 200; display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.ov { position: fixed; inset: 0; background: rgba(9,13,24,.6); backdrop-filter: blur(6px); z-index: 10000; display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; }
 .ov.open { opacity: 1; pointer-events: all; }
 .sht { background: var(--sur); border-radius: 22px 22px 0 0; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; transform: translateY(100%); transition: transform .32s cubic-bezier(.34,1.4,.64,1); padding-bottom: 120px; }
 .ov.open .sht { transform: translateY(0); }
@@ -1369,7 +1369,7 @@ console.log('✅ Script loaded successfully');
 // ═══════════════════════════════════════
 //  CONFIGURATION — Fill these values
 // ═══════════════════════════════════════
-const API_URL = "https://script.google.com/macros/s/AKfycbwSrALAn6dxRa6gwWabK7-yJNgo4s2DjAXLee77ge2zE4DFhNyNcyG5aYO8iNZ8Smjg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyd8QPC2ANkeg511OCQTkXUZ1B6cFB7tKdes27ClKAZkz1O7RZ4bdIVk4-RIK5v5sGQ/exec";
 const SECRET_TOKEN = "d6bf785b7cfcca40a85e3376cfb930da27a2842eb1d5a5b51105bf190edd07a2"; // ← paste your token here
 // ═══════════════════════════════════════
 //  API HELPER
@@ -1692,7 +1692,11 @@ loadResults();
 // ═══════════════════════════════════════
 //  DRAWERS
 // ═══════════════════════════════════════
-function openSht(id) { document.getElementById('ov-' + id).classList.add('open'); }
+function openSht(id) {
+  const el = document.getElementById('ov-' + id);
+  if (el) { el.classList.add('open'); }
+  else { console.error('openSht: element #ov-' + id + ' not found'); }
+}
 function closeSht(id) { document.getElementById('ov-' + id).classList.remove('open'); }
 document.querySelectorAll('.ov').forEach(o => {
 o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
